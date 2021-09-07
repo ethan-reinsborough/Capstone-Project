@@ -13,4 +13,4 @@ Angular and Typescript backend with HTML frontend. Receives data and methods fro
 
 # Android
 
-Employee list with department filter. Calling and email features, information is obtain by using desktop API to interact with database.
+Employee list with department filter. Calling and email features, information is obtained by using desktop API to interact with database.
