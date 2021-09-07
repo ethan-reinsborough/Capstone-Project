@@ -1,0 +1,167 @@
+<h2 style="text-align: center;">Process POR Item</h2>
+<h3 class="text-center" *ngIf="loadingOrderItem">
+    <i class="fas fa-cog fa-spin fa-2x"></i><br />
+    Loading Item...
+</h3>
+
+<form #orderItemForm="ngForm" (ngSubmit)="onFormSubmit(orderItemForm)">
+    <input type="hidden" name="OrderItemID" #id="ngModel" [ngModel]="orderItem.orderItemID">
+    <input type= "hidden" name="recordVersion" #id="ngModel" [ngModel]="orderItem.recordVersion">
+    <div class="form-group">
+        <label for="orderItemName">Name</label>      
+        <i class="fas fa-exclamation-circle err"
+        *ngIf="(orderItemName?.errors?.required || orderItemName?.errors?.minlength)
+        && orderItemForm.submitted
+        && !isValidFormSubmitted"
+        
+        [attr.title]="orderItemName?.errors?.required
+        ? 'Item name is required'
+        : orderItemName?.errors?.minlength
+        ? 'Item name minumum length 5':''"></i>
+        
+        <input type="text" 
+        class="form-control"
+        name="orderItemName"
+        [(ngModel)]="orderItem.orderItemName"
+        required
+        [disabled]="true"
+        minlength="5"
+        maxlength="255"
+        #orderItemName="ngModel">
+        
+    </div>
+    <div class="form-group">
+        <label for="orderItemDescription">Description</label> 
+        <i class="fas fa-exclamation-circle err"
+        *ngIf="(orderItemDescription?.errors?.required || orderItemDescription?.errors?.minlength)
+        && orderItemForm.submitted
+        && !isValidFormSubmitted"
+        
+        [attr.title]="orderItemDescription?.errors?.required
+        ? 'Item description is required'
+        : orderItemDescription?.errors?.minlength
+        ? 'Item description minumum length 5':''"></i>
+        <input type="text" 
+        class="form-control"
+        name="orderItemDescription"
+        [(ngModel)]="orderItem.orderItemDescription"
+        required
+        [disabled]="true"
+        minlength="5"
+        maxlength="255"
+        #orderItemDescription="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="orderItemJustification">Justification</label> 
+        <i class="fas fa-exclamation-circle err"
+        *ngIf="(orderItemJustification?.errors?.required || orderItemJustification?.errors?.minlength)
+        && orderItemForm.submitted
+        && !isValidFormSubmitted"
+        
+        [attr.title]="orderItemDescription?.errors?.required
+        ? 'Item justification is required'
+        : orderItemJustification?.errors?.minlength
+        ? 'Item justification minumum length 5':''"></i>
+        <input type="text" 
+        class="form-control"
+        name="orderItemJustification"
+        [(ngModel)]="orderItem.orderItemJustification"
+        [disabled]="true"
+        required
+        minlength="5"
+        maxlength="512"
+        #orderItemJustification="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="orderItemLocation">Location</label> 
+        <i class="fas fa-exclamation-circle err"
+        *ngIf="(orderItemLocation?.errors?.required || orderItemLocation?.errors?.minlength)
+        && orderItemForm.submitted
+        && !isValidFormSubmitted"
+        
+        [attr.title]="orderItemLocation?.errors?.required
+        ? 'Item location is required'
+        : orderItemLocation?.errors?.minlength
+        ? 'Item location minumum length 5':''"></i>
+        <input type="text" 
+        class="form-control"
+        name="orderItemLocation"
+        [(ngModel)]="orderItem.orderItemLocation"
+        required
+        minlength="5"
+        maxlength="255"
+        #orderItemLocation="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="orderItemPrice">Price</label> 
+        <i class="fas fa-exclamation-circle err"
+        *ngIf="(orderItemPrice?.errors?.required)
+        && orderItemForm.submitted
+        && !isValidFormSubmitted"
+        
+        [attr.title]="orderItemPrice?.errors?.required
+        ? 'Item price is required':''"></i>
+        <input type="number" 
+        class="form-control"
+        name="orderItemPrice"
+        [(ngModel)]="orderItem.orderItemPrice"
+        required
+        #orderItemPrice="ngModel">       
+    </div>
+    <div class="form-group">
+        <label for="orderItemQty">Quantity</label>
+        <input type="number" 
+        class="form-control"
+        name="orderItemQty"
+        [(ngModel)]="orderItem.orderItemQty"
+        #orderItemQty="ngModel">  
+    </div>
+    <div class="form-group">
+        <label for="orderItemStatus">Status</label>
+        <select type="number" 
+        class="form-control"
+        name="orderItemStatus"
+        [(ngModel)]="orderItem.statusID"
+        #orderItemStatus="ngModel">
+            <option value="1">Pending</option>
+            <option value="2">Approve</option>
+            <option value="3">Deny</option>
+        </select>
+    </div>
+    <div *ngIf="orderItem.statusID == 3" class="form-group">
+        <label for="orderItemReason">Reason</label>      
+        <i class="fas fa-exclamation-circle err"
+        *ngIf="(orderItemReason?.errors?.required || orderItemName?.errors?.minlength)
+        && orderItemForm.submitted
+        && !isValidFormSubmitted"
+        
+        [attr.title]="orderItemReason?.errors?.required
+        ? 'Item reason is required'
+        : orderItemReason?.errors?.minlength
+        ? 'Item reason minumum length 5':''"></i>
+        
+        <input type="text" 
+        class="form-control"
+        name="orderItemReason"
+        [(ngModel)]="orderItem.reason"
+        required
+        minlength="5"
+        maxlength="255"
+        #orderItemReason="ngModel">
+        
+    </div>
+    
+
+    <button class="btn btn-primary">Process Item</button>
+</form>
+<br/>
+<button *ngIf="order && order.statusID < 5 && closeable" class="btn btn-danger" (click)="ClosePOR()">Close Order? </button>
+<div>
+    {{submitMessage}}
+</div>
+
+<!--Errors-->
+<ul *ngIf="messages">
+    <li class="text-danger" *ngFor="let m of messages">{{m}}</li>
+   
+</ul>

@@ -1,0 +1,19 @@
+Employee: <strong>{{employee.firstName}} {{employee.middleInitial}} {{employee.lastName}}</strong><br />Department:
+<strong>{{employee.department}}</strong><br />Supervisor: <strong>{{employee.supervisor}}</strong>
+<h1 class="text-center">Purchase Order Requisition List</h1>
+<h3 class="text-center" *ngIf="loadingOrders">
+    <i class="fas fa-cog fa-spin fa-2x"></i><br />
+    Loading Orders...
+</h3>
+<div *ngIf="orders && !orders.length && !loadingOrders" class="alert alert-danger" role="alert">
+    No orders found
+</div>
+
+<!--Order Table Component goes here-->
+<app-order-table [orders]="this.orders"></app-order-table>
+<app-orderitem-table [order]="this.selectedOrder"></app-orderitem-table>
+
+<!--Errors-->
+<ul class="alert alert-danger" *ngIf="messages">
+    <li *ngFor="let m of messages">{{m}}</li>
+</ul>

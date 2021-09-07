@@ -1,0 +1,135 @@
+# Search Employee API (HR)
+
+### 
+
+#Invalid Last Name Search
+GET https://localhost:44349/api/Employees/byName/
+
+###
+
+#Incomplete Last Name Search
+GET https://localhost:44349/api/Employees/byName/ith
+
+###
+
+#Incomplete ID result
+GET https://localhost:44349/api/Employees/10000
+
+###
+
+# Get Employee with proper format but does not exist
+GET https://localhost:44349/api/Employees/10000020
+
+###
+
+# Get Employee with proper format 
+GET http://127.0.0.1:44349/api/Employees/Info/Departments
+
+###
+
+# Get by Last Name (R)
+GET http://127.0.0.1:44349/api/Employees/byName/zxy123
+
+###
+
+# Test Login API
+GET https://localhost:44349/api/Login/ceo@mail.com/123
+
+###
+https://jsonplaceholder.typicode.com/todos/1
+
+###
+
+GET http://127.0.0.1:44349/api/Employees/byDepartment/hi/1
+
+###
+# Update Personal Info Test
+
+PUT https://localhost:44349/api/Employees/Update/Personal/10000001
+Content-Type: application/json
+
+{
+            "EmployeeID": 10000001, 
+            "StreetAddress": "123 MiddleOfNoWhere",
+            "Municipality": "Dalhousie",
+            "Province": "NB",
+            "Country": "CA",
+            "WorkPhone": "506-686-1111",
+            "CellPhone": "506-686-1111"
+}
+###
+
+# Get Departments Test
+
+GET https://localhost:44349/api/Employees/Info/Departments
+
+###
+
+# Update department test
+
+PUT https://localhost:44349/api/Employees/Update/Department/1
+Content-Type: application/json
+
+{
+            "DepartmentID": 1, 
+            "Name": "HR",
+            "Description": "Human Resources 2",
+            "InvocationDate": "2005-04-04 00:00:00.000"
+}
+
+###
+
+# Add Review Test
+
+POST https://localhost:44349/api/Employees/AddReview
+content-type: application/json
+
+{
+    
+            "EmployeeID": 10000005, 
+            "SupervisorID": 10000001,
+            "ReviewDate": "2021-05-10 11:12:00.000",
+            "PerformanceRating": "3",
+            "Comment": "Wow good job!"
+    
+}
+
+###
+
+# PO Create / Modify Requests
+
+# Get pending orders for Trevor Donovan
+# Pass this in from employee session login
+GET https://localhost:44349/api/Orders/10000002
+
+###
+# Create Order with items
+POST https://localhost:44349/api/Orders/Create
+content-type: application/json
+
+{
+    "items":[
+        {
+            "orderItemName": "Test Item",
+            "orderItemDescription": "Test Item Desc",
+            "orderItemJustification": "Test Item Just",
+            "orderItemPrice": 1.0,
+            "orderItemQty": 1,
+            "orderItemLocation": "Test Item Location"
+        }
+    ],
+    "employeeID": 10000002,
+}
+
+###
+# Get orderitems for order
+GET https://localhost:44349/api/Orders/Details/105
+
+###
+# Get orderitemdetails for orderitem
+GET https://localhost:44349/api/Orders/Details/Item/9
+
+
+###
+# Get Process PORs
+GET https://localhost:44349/api/Orders/Details/10000001

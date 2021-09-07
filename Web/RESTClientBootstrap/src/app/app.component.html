@@ -1,0 +1,59 @@
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">TE Consulting ERP</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+
+          <!--Home Link-->
+          <a class="nav-link" routerLink="/"><i class="fas fa-home"></i> Home</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-shopping-cart"></i> Purchase Order Requisition
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/orders"><i class="fas fa-list"></i> Pending PORs</a>
+            <a class="dropdown-item" routerLink="/orders/create"><i class="fas fa-plus"></i> Create POR</a>
+            <a class="dropdown-item" routerLink="/process"><i class="far fa-check-square"></i> Process PORs</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-friends"></i> Human Resources
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <!--<div class="dropdown-divider"></div> -->
+            <a class="dropdown-item" routerLink="/employees/search"><i class="fas fa-search"></i> Search</a>
+            <a class="dropdown-item" routerLink="/employees/review"><i class="far fa-plus-square"></i> Create Review</a>
+            <a class="dropdown-item" routerLink="/employees/pmodify"><i class="fas fa-user-edit"></i> Modify Personal Information</a>
+            <a class="dropdown-item" routerLink="/employees/dmodify"><i class="fas fa-building"></i> Modify Departments</a>
+            <a class="dropdown-item" routerLink="/employees/sreview"><i class="fas fa-list-ol"></i> Show Reviews</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-cog"></i> Options
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <!--<div class="dropdown-divider"></div> -->
+            <a class="dropdown-item" routerLink="/login"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="wrapper">
+  <div class="mt-30 p-10">
+    <router-outlet></router-outlet>
+  </div>
+</div>

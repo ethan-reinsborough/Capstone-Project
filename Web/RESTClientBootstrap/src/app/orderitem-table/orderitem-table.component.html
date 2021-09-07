@@ -1,0 +1,41 @@
+<div *ngIf="order.items?.length">POR: <strong>{{order.poNumberFormatted}}</strong><br/>Number of items: <strong>{{order.items.length}}</strong></div>
+<table class="table table-striped" *ngIf="order.items?.length">
+    <thead>
+        <tr>
+            <th scope="col">Qty</th>
+            <th scope="col">Status</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Justification</th>
+            <th scope="col">Location</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+            <!--<th scope="col"> </th>-->
+        </tr>
+    </thead>
+    <tbody>
+        <!--Loop Orders-->
+        <tr *ngFor="let i of order.items">
+            <td scope="row">{{i.orderItemQty}}</td>
+            <td *ngIf="i.statusID == 1 || order.statusID == 5" scope="row">{{i.status}}</td>
+            <td *ngIf="i.statusID != 1 && order.statusID != 5" scope="row"></td>
+            <td scope="row">{{i.orderItemName}}</td>
+            <td scope="row">{{i.orderItemDescription}}</td>
+            <td scope="row">{{i.orderItemJustification}}</td>
+            <td scope="row">{{i.orderItemLocation}}</td>
+            <td scope="row">{{i.orderItemPrice | currency}}</td>   
+            <td scope="row"><a *ngIf="order.statusID == 1 && i.statusID != 2 && i.statusID != 3" class="btn btn-warning" routerLink="/orders/{{order.poNumber}}/edititem/{{i.orderItemID}}">Edit Item <i class="far fa-edit"></i> </a></td>
+        </tr>
+    </tbody>
+</table>
+<a *ngIf="order.statusID == 1" class="btn btn-primary" routerLink="/orders/{{order.poNumber}}/additem">Add Item</a>
+
+<!-- <h3 class="text-center" *ngIf="deletingOrder">
+    <i class="fas fa-cog fa-spin fa-3x"></i><br />
+    Deleting...
+</h3> -->
+
+<!--Errors-->
+<ul *ngIf="messages">
+    <li class="text-danger" *ngFor="let m of messages">{{m}}</li>
+</ul>

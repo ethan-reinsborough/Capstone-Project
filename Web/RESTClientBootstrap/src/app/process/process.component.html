@@ -1,0 +1,115 @@
+<h1 class="text-center">Process Purchase Order Request</h1>
+
+<!--Order Table Component goes here-->
+<!-- <app-order-table [orders]="this.orders"></app-order-table> -->
+
+<br />
+<div class="row">
+    <form #dateForm="ngForm" id="dateForm" (ngSubmit)="onFormSubmit(dateForm)">
+        <div class="col-sm">
+            <div class="input-group rounded">
+                <input ngModel name="poNumberSearch" type="search" class="form-control rounded"
+                    placeholder="Search by POR Number" aria-label="Search" aria-describedby="search-addon" />
+            </div>
+        </div>
+        <br />
+        <div class="col-sm">
+            <div class="input-group rounded">
+                <input ngModel name="searchEmp" type="search" class="form-control rounded"
+                    placeholder="Search by Employee Name" aria-label="Search" aria-describedby="search-addon" />
+            </div>
+        </div>
+        <br />
+        <div class="col-sm">
+            <select ngModel name="statusId" class="form-select form-select-lg mb-3" aria-label="Default select example">
+                <option value="1" ng-selected="statusId">Pending</option>
+                <option value="5">Closed</option>
+                <option value="10">All</option>
+            </select>
+        </div>
+        <br />
+        <div class="col-sm">
+            <div class="input-group date" id="datetimepickers">
+                <input ngModel name="startDate" type="text" class="form-control" placeholder="Start Date: YYYY/MM/DD">
+                <div class="input-group-text"> to </div>
+                <input ngModel name="endDate" type="text" class="form-control" placeholder="End Date: YYYY/MM/DD">
+                <button class="btn btn-light"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+
+<table class="table table-striped" *ngIf="orders?.length">
+    <thead>
+        <tr>
+            <th scope="col">PO Number</th>
+            <th scope="col">Status</th>
+            <th scope="col">Date</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Tax</th>
+            <th scope="col">Total</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col"> </th>
+            <!--<th scope="col"> </th>-->
+        </tr>
+    </thead>
+    <tbody>
+        <!--Loop Orders-->
+        <tr *ngFor="let order of orders | searchfilter:searchValue">
+            <td scope="row">{{order.poNumberFormatted}}</td>
+            <td scope="row">{{order.status}}</td>
+            <td scope="row">{{order.poCreationDate | date : fullDate }}</td>
+            <td scope="row">{{order.poSubtotal | currency}}</td>
+            <td scope="row">{{order.poTax | currency}}</td>
+            <td scope="row">{{order.poTotal | currency}}</td>
+            <td scope="row">{{order.employeeName}}</td>
+            <td scope="row"><a class="btn btn-primary" routerLink="/process/{{order.poNumber}}">Process POR</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngIf="selectedOrder">Number of items: <strong>{{selectedOrder.items.length}}</strong></div>
+<table class="table table-striped" *ngIf="selectedOrder">
+    <thead>
+        <tr>
+            <th scope="col">Qty</th>
+            <th scope="col">Status</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Justification</th>
+            <th scope="col">Location</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let i of selectedOrder.items">
+            <td scope="row">{{i.orderItemQty}}</td>
+            <td scope="row">{{i.status}}</td>
+            <td scope="row">{{i.orderItemName}}</td>
+            <td scope="row">{{i.orderItemDescription}}</td>
+            <td scope="row">{{i.orderItemJustification}}</td>
+            <td scope="row">{{i.orderItemLocation}}</td>
+            <td scope="row">{{i.orderItemPrice | currency}}</td>   
+            <td scope="row"><a *ngIf="selectedOrder.statusID < 5" class="btn btn-warning" routerLink="/process/{{selectedOrder.poNumber}}/edititem/{{i.orderItemID}}">Process Item <i class="far fa-edit"></i> </a></td>
+        </tr>
+    </tbody>
+</table>
+
+<button *ngIf="selectedOrder && selectedOrder.statusID < 5 && closeable" class="btn btn-danger" (click)="ClosePOR()">Close Order? </button>
+
+<!-- <h3 class="text-center" *ngIf="deletingOrder">
+    <i class="fas fa-cog fa-spin fa-3x"></i><br />
+    Deleting...
+</h3> -->
+
+<!--Errors-->
+<ul *ngIf="messages">
+    <li class="text-danger" *ngFor="let m of messages">{{m}}</li>
+</ul>
+
+<!--Errors-->
+<ul class="alert alert-danger" *ngIf="messages">
+    <li *ngFor="let m of messages">{{m}}</li>
+</ul>

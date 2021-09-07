@@ -1,0 +1,41 @@
+<div *ngIf="employees">
+  Number of employees found: {{ this.employees.length }}
+</div>
+<table class="table table-striped" *ngIf="employee || employees">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Middle Initial</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Mailing Address</th>
+      <th scope="col">Work Number</th>
+      <th scope="col">Cell Number</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="employee">
+      <td scope="row">{{ employee.firstName }}</td>
+      <td scope="row">{{ employee.middleInitial }}</td>
+      <td scope="row">{{ employee.lastName }}</td>
+      <td scope="row">{{ employee.mailAddress }}</td>
+      <td scope="row">{{ employee.workPhone }}</td>
+      <td scope="row">{{ employee.cellPhone }}</td>
+      <td scope="row">{{ employee.email }}</td>
+    </tr>
+    <tr *ngFor="let e of employees">
+      <td scope="row">{{ e.firstName }}</td>
+      <td scope="row">{{ e.middleInitial }}</td>
+      <td scope="row">{{ e.lastName }}</td>
+      <td scope="row">{{ e.mailAddress }}</td>
+      <td scope="row">{{ e.workPhone }}</td>
+      <td scope="row">{{ e.cellPhone }}</td>
+      <td scope="row">{{ e.email }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!--Errors-->
+<ul *ngIf="messages">
+  <li class="text-danger" *ngFor="let m of messages">{{ m }}</li>
+</ul>

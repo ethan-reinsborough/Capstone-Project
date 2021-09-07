@@ -1,0 +1,32 @@
+<h1 class="text-center">Modify Department</h1>
+<br>
+<div>
+    <div class="input-group mb-3">
+        <div class="form-group" style="width: 100%">
+            <label>Departments</label>
+            <select [(ngModel)]="selectedDepartment" class="form-control">
+                <option *ngFor="let d of departments " [ngValue]="d.departmentId">{{d.name}}</option>
+            </select><br>
+            <div class="text-right"><button class="btn btn-primary" (click)="reloadDepartments()">Select</button></div>
+        </div>
+        <div class="form-group" style="width: 100%">
+            <label for="dName">Department Name</label>
+            <p *ngIf="this.isNonHRSupervisor">{{this.readOnlyName}}</p>
+            <input *ngIf="!this.isNonHRSupervisor" type="text" class="form-control" id="dName" [(ngModel)]="name" required /><br>
+            <label for="dDescription">Department Description</label>
+            <input type="text" class="form-control" id="dDescription" [(ngModel)]="description" required /><br>
+            <label for="iDate">Invocation Date</label>
+            <p *ngIf="this.isNonHRSupervisor">{{this.readOnlyDate}}</p>
+            <input *ngIf="!this.isNonHRSupervisor" type="text" class="form-control" id="iDate" [(ngModel)]="invocationDate" required />
+        </div>
+        <div *ngIf="this.feedback" role="alert">
+            <div *ngIf="this.negative" class="alert alert-danger" role="alert">
+                <pre>{{ this.feedback }}</pre>
+            </div>
+            <div *ngIf="this.positive">
+                {{ this.feedback }}
+            </div>
+        </div>
+    </div>
+    <div class="text-right"><button class="btn btn-primary" (click)="update()">Update</button></div>
+</div>

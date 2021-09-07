@@ -1,0 +1,31 @@
+<h1 class="text-center">Modify Personal Information</h1>
+<div>
+    <h3 class="text-center">{{this.fullName}}</h3>
+    <div class="input-group mb-3">
+        <div class="form-group" style="width: 100%">
+            <label for="workPhone">Work Phone Number</label>
+            <input type="text" class="form-control" id="workPhone" [(ngModel)]="workPhone" required/>
+            <br>
+            <label for="cellPhone">Cell Phone Number</label>
+            <input type="text" class="form-control" id="cellPhone" [(ngModel)]="cellPhone" required/>
+        </div>
+        <div class="form-group" style="width: 100%">
+            <label for="streetAddress">Street Address</label>
+            <input type="text" class="form-control" id="streetAddress" [(ngModel)]="streetAddress"  required/>
+            <br>
+            <label for="municipality">Municipality</label>
+            <input type="text" class="form-control" id="municipality" [(ngModel)]="municipality" required/>
+        </div>
+        <div class="form-group" style="width: 100%">
+            <label for="province">Province/State</label>
+            <input type="text" class="form-control" id="province" [(ngModel)]="province" required/>
+            <br>
+            <label for="country">Country</label>
+            <input type="text" class="form-control" id="country" [(ngModel)]="country" required/>
+        </div>
+        <div *ngIf="this.feedback" role="alert">
+            {{ this.feedback }}
+        </div>
+    </div>
+    <div class="text-right"><button class="btn btn-primary" (click)="update()">Update</button></div>
+</div>
